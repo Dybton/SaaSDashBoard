@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/SaaSDashBoard/static/css/main.3db369c7.css",
+    "main.js": "/SaaSDashBoard/static/js/main.cce6a8ec.js",
+    "index.html": "/SaaSDashBoard/index.html",
+    "main.3db369c7.css.map": "/SaaSDashBoard/static/css/main.3db369c7.css.map",
+    "main.cce6a8ec.js.map": "/SaaSDashBoard/static/js/main.cce6a8ec.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3db369c7.css",
+    "static/js/main.cce6a8ec.js"
+  ]
+}
