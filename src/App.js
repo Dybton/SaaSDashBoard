@@ -2,7 +2,7 @@ import './App.css';
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import financialData from './data';
-import { AppBar, Toolbar, IconButton, Typography, Grid, Box, Button, Divider } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, Grid, Box, Divider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 
@@ -84,6 +84,7 @@ const LineChart = ({ parseElem }) => {
 	const d3Chart = useRef()
 	useEffect(() => {
 
+		// Parse over financial data to get the specific data we are interested in
 		function parseData(parseElem) {
 			return (financialData).map(elem => ({ month: elem.month, [parseElem]: elem[parseElem] }))
 		}
@@ -102,37 +103,37 @@ const LineChart = ({ parseElem }) => {
 			.attr('height', height + margin.top + margin.bottom)
 			.append('g')
 			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-		// x axis scale // here we're finding the pixels corresponding the data points
+
+
+		// Declare the x-axis and insert the x-values
 		const x = d3.scaleTime()
-			// Here we're inserting the x-values
 			.domain(d3.extent(newData, function (d) { return d.month }))
 			.range([0, width])
 
 		let xAxisGenerator = d3.axisBottom(x);
+
+		// Determine the number and format of the ticks
 		xAxisGenerator.ticks(24)
 		xAxisGenerator.tickFormat(d3.format(""))
 
-
 		svg.append('g')
 			.attr('transform', 'translate(0,' + height + ')')
-			// Here we add the x-axis
+			// Call the x-axis
 			.call(xAxisGenerator)
 
-		// Get the max value of counts
+		// Get the max value of the y-axis data
 		const max = d3.max(newData, function (d) { return d[parseElem] })
 
-		// y axis scale 
+		// Declare the y-axis and insert the y-values
 		const y = d3.scaleLinear()
-			// Here we insert the x-values
 			.domain([0, max])
 			.range([height, 0])
 
-
+		// Here we call the y-axis
 		svg.append('g')
-			// Here we add the y-axis
 			.call(d3.axisLeft(y))
 
-		// Draw line
+		// Draw the line
 		svg.append('path')
 			.datum(newData)
 			.attr('fill', 'none')
@@ -143,7 +144,7 @@ const LineChart = ({ parseElem }) => {
 				.y(function (d) { return y(d[parseElem]) })
 			)
 
-		// Add title 
+		// Add bottom text 
 		svg.append('text')
 			.attr('x', (width / 2 + 20))
 			.attr('y', (margin.top * 11.5))
